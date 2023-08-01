@@ -14,11 +14,11 @@ function App() {
   function openSideMenu(){
     setSideMenuOpen(true);
     window.scrollTo(0, 0);
-    document.body.style.overflow = "hidden";
+    document.html.style.overflow = "hidden";
   }
   function closeSideMenu(){
     setSideMenuOpen(false);
-    document.body.style.overflow = "scroll";
+    document.html.style.overflow = "scroll";
   }
 
   function addToCart(amt){
