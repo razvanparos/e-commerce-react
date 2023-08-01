@@ -13,9 +13,12 @@ function App() {
 
   function openSideMenu(){
     setSideMenuOpen(true);
+    window.scrollTo(0, 0);
+    document.body.style.overflow = "hidden";
   }
   function closeSideMenu(){
     setSideMenuOpen(false);
+    document.body.style.overflow = "scroll";
   }
 
   function addToCart(amt){
@@ -25,7 +28,7 @@ function App() {
     setCartAmount(0)
   }
  
-
+  
   return (
     <div className="app-div">
       <Header openSideMenu={openSideMenu} qty={cartAmount} handleTrash={handleTrash}/>

@@ -17,7 +17,11 @@ function Product(props) {
     }
 
     function addToCart(){
-        props.addToCart(amount)
+        if(amount>0){
+            props.addToCart(amount)
+            window.scrollTo(0, 0);
+        }
+        
     }
 
   return (
