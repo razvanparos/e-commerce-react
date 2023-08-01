@@ -1,0 +1,15 @@
+.product-div{
+    height: 100%;
+    padding: 60px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    row-gap: 40px;
+}
+
+.to-cart{
+  transition: 0.4s;
+}
+.to-cart:hover{
+    background-color: rgb(230, 156, 21) !important;
+}
