@@ -1,6 +1,6 @@
 import MenuButton from '../menubutton/menubutton';
 import './header.css';
-import React, {useState,useEffect} from 'react';
+import React, {useState,useEffect,useRef} from 'react';
 import { FaUserAlt } from "react-icons/fa";
 import img1 from '../images/image-product-1.jpg';
 import { BsFillTrashFill } from "react-icons/bs";
@@ -8,8 +8,9 @@ import { BsFillTrashFill } from "react-icons/bs";
 
 
 
-function Header(props) {
 
+function Header(props) {
+  const cartSummaryRef = useRef(null);
   const [cartAmount, setCartAmount] = useState(props.qty);
   const [isOpen, setIsOpen] = useState(false)
 
@@ -17,7 +18,8 @@ function Header(props) {
       props.openSideMenu();
   }
 
-  function openSummary(){
+  function openSummary(even){
+    even.stopPropagation();
     if(isOpen===false){setIsOpen(true);}else setIsOpen(false)
     
   }
@@ -25,10 +27,25 @@ function Header(props) {
     props.handleTrash()
   }
 
+
   
   useEffect(() => {
     setCartAmount(props.qty)
   }, [props.qty]); 
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (cartSummaryRef.current && !cartSummaryRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
+  
+    document.addEventListener('click', handleClickOutside);
+  
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
  
 
   return (
@@ -52,7 +69,7 @@ function Header(props) {
             <button className='profile-btn' style={{color:'hsl(219, 9%, 45%)'}}> <FaUserAlt/></button>
             <span className='cart-amount'>{cartAmount}</span>
             
-            <div className={`cart-summary ${isOpen ? 'cart-open':''}`}>
+            <div ref={cartSummaryRef} className={`cart-summary ${isOpen ? 'cart-open':''}`}  >
               <div style={{rowGap:'20px', margin:'20px', display:'flex', flexDirection:'column',justifyContent:'space-between',height:'100px'}}>
                 <p>Cart</p>
                 
@@ -61,7 +78,7 @@ function Header(props) {
                     <img style={{width:'40px',borderRadius:'10px'}}  src={img1} alt="" />
                     <div>
                       <p style={{fontSize:'10px', marginBottom:'5px'}}>Fall Limited Edition Sneakers</p>
-                      <p style={{fontSize:'10px', display:'flex',columnGap:'10px'}}>$125.00 x {cartAmount} <p style={{fontWeight:'700',width:'fit-content'}}>${125*cartAmount}</p></p>
+                      <h4 style={{fontSize:'10px', display:'flex',columnGap:'10px'}}>$125.00 x {cartAmount} <p style={{fontWeight:'700',width:'fit-content'}}>${125*cartAmount}</p></h4>
                     </div>
                   <button onClick={handleTrash}  style={{color:'gray'}}><BsFillTrashFill/></button>
                   </div>
