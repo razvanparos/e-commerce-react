@@ -19,6 +19,7 @@ html{
 
 
 *{
+
     margin: 0px;
     box-sizing: border-box;
     font-family: 'Kumbh Sans', sans-serif;
@@ -74,7 +75,8 @@ html{
     }
 
     .cart-summary{
-        left: -160px !important;
+        left: -180px !important;
+        
     }
 
     .img-div{
